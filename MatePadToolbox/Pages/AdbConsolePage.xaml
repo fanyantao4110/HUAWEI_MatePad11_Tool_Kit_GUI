@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MatePadToolbox.Pages.AdbConsolePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:MatePadToolbox.Controls"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="12">
+        <controls:TroubleshootButton FeatureKey="console" FeatureName="ADB命令行" HorizontalAlignment="Left"/>
+
+        <StackPanel Spacing="6">
+            <TextBlock Text="ADB / Fastboot 命令行工具" FontSize="24" FontWeight="Bold"/>
+            <TextBlock TextWrapping="Wrap" Opacity="0.8" LineHeight="22"
+                       Text="内置命令行终端，工作目录为 tools。常用命令：adb devices（查看设备）、adb shell（进入终端）、adb reboot（重启设备）、fastboot flash（刷写分区）、fastboot reboot（重启设备）。输入 exit 关闭当前会话。"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button x:Name="BtnStart" Content="启动终端" Click="StartConsole_Click" Style="{StaticResource AccentButtonStyle}"/>
+            <Button x:Name="BtnStop" Content="关闭终端" Click="StopConsole_Click" IsEnabled="False"/>
+            <Button Content="清空输出" Click="ClearLog_Click"/>
+            <TextBlock x:Name="ConsoleStatus" Text="未启动" VerticalAlignment="Center" Opacity="0.7"/>
+        </StackPanel>
+
+        <controls:LogPanel x:Name="Log" Height="420"/>
+
+        <Grid ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="CmdInput" Grid.Column="0" PlaceholderText="输入命令后按回车执行，例如：adb devices"
+                     KeyDown="CmdInput_KeyDown" IsEnabled="False" FontFamily="Consolas"/>
+            <Button x:Name="BtnSend" Grid.Column="1" Content="执行" Click="SendCmd_Click" IsEnabled="False" MinWidth="80"/>
+        </Grid>
+    </StackPanel>
+</Page>

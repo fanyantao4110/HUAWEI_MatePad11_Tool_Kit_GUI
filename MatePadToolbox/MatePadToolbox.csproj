@@ -1,0 +1,76 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>MatePadToolbox</RootNamespace>
+    <AssemblyName>MatePadToolbox</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x86;x64;ARM64</Platforms>
+    <!-- WinUI3 不支持 AnyCPU：命令行 dotnet build 未指定平台时默认用 x64 -->
+    <Platform Condition="'$(Platform)'==''">x64</Platform>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+    <!-- 直接运行生成的 EXE 时携带 WinUI 原生运行时，避免找不到 Microsoft.ui.xaml.dll。 -->
+    <!-- 单文件发布：所有 DLL 打包进 EXE -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <!-- 自包含：连 .NET 运行时也打包进去，用户无需安装运行时 -->
+    <SelfContained>true</SelfContained>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <UseWinUI>true</UseWinUI>
+    <WindowsPackageType>None</WindowsPackageType>
+    <UseRidGraph>true</UseRidGraph>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon />
+    <Version>1.0.0</Version>
+    <Authors>MatePadToolbox</Authors>
+    <Product>华为MatePad 11 综合工具箱</Product>
+    <Description>华为MatePad 11 综合工具箱（WinUI3 版）</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.241001000" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <!-- 自包含部署默认会把 Windows App SDK 的全部语言资源（*.mui）拷入输出。
+       这里利用官方预留的 MicrosoftWindowsAppSDKFilesExcluded 排除项，
+       在拷贝前只保留 zh-CN，其余语言一律不进入输出。 -->
+  <Target Name="ExcludeNonZhCnWinUILanguageMui"
+          BeforeTargets="AddMicrosoftWindowsAppSDKPayloadFiles"
+          DependsOnTargets="ExtractMicrosoftWindowsAppSDKMsixFiles">
+    <ItemGroup>
+      <MicrosoftWindowsAppSDKFilesExcluded
+        Include="$(SelfContainedIntermediateOutputPath)MsixContent\**\*.mui"
+        Exclude="$(SelfContainedIntermediateOutputPath)MsixContent\zh-CN\**\*.mui" />
+    </ItemGroup>
+  </Target>
+
+  <!-- 清理旧构建残留的非 zh-CN 语言目录（仅删除含 *.mui 的语言目录，不影响
+       Assets、Microsoft.UI.Xaml 等非语言目录），保证增量构建后也只保留 zh-CN。 -->
+  <Target Name="RemoveNonZhCnWinUILanguageDirs"
+          AfterTargets="AddMicrosoftWindowsAppSDKPayloadFiles">
+    <ItemGroup>
+      <_NonZhCnWinUIMui Include="$(OutDir)**\*.mui"
+                        Exclude="$(OutDir)zh-CN\**\*.mui" />
+    </ItemGroup>
+    <Delete Files="@(_NonZhCnWinUIMui)" />
+    <RemoveDir Directories="@(_NonZhCnWinUIMui->'%(RootDir)%(Directory)'->Distinct())" />
+  </Target>
+
+</Project>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentDialog
+    x:Class="MatePadToolbox.Dialogs.DisclaimerDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    PrimaryButtonText="同意并继续"
+    SecondaryButtonText="退出"
+    DefaultButton="Primary">
+
+    <ContentDialog.Title>
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <FontIcon Glyph="&#xE7BA;" FontSize="18"
+                      Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                      VerticalAlignment="Center"/>
+            <TextBlock Text="免责声明" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"/>
+        </StackPanel>
+    </ContentDialog.Title>
+
+    <StackPanel Spacing="12" MaxWidth="480">
+        <TextBlock TextWrapping="Wrap" LineHeight="24" FontSize="14"
+                   Text="本工具仅供学习与研究使用，刷机、解锁等操作存在风险，可能导致设备变砖、数据丢失或失去保修。使用本工具即表示您自愿承担所有后果，开发者不对任何损坏或损失负责。"/>
+        <TextBlock TextWrapping="Wrap" LineHeight="24" FontSize="14"
+                   Text="请确认您已充分了解风险并愿意继续。"/>
+        <InfoBar IsOpen="True" IsClosable="False" Severity="Warning"
+                 Title="提示"
+                 Message="如果你已经安装驱动程序并且解锁 BL 了，可以直接从第三步（Root）开始！"/>
+    </StackPanel>
+</ContentDialog>

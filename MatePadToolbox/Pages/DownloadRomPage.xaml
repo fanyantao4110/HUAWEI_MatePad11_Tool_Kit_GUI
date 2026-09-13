@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MatePadToolbox.Pages.DownloadRomPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:MatePadToolbox.Controls"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="16">
+        <controls:TroubleshootButton FeatureKey="download" FeatureName="下载第三方系统/底包" HorizontalAlignment="Left"/>
+
+        <TextBlock Text="下载第三方系统/底包" FontSize="24" FontWeight="Bold"/>
+
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <TextBlock Text="系统版本" VerticalAlignment="Center"/>
+            <ComboBox x:Name="VersionCombo" SelectedIndex="0" MinWidth="140">
+                <ComboBoxItem Content="鸿蒙2.0"/>
+                <ComboBoxItem Content="鸿蒙3.0"/>
+                <ComboBoxItem Content="鸿蒙4.0"/>
+                <ComboBoxItem Content="鸿蒙4.2"/>
+                <ComboBoxItem Content="鸿蒙4.3"/>
+            </ComboBox>
+            <Button x:Name="BtnLoad" Content="加载系统列表" Click="LoadRomList_Click"
+                    Style="{StaticResource AccentButtonStyle}"/>
+            <Button x:Name="BtnUpdateJson" Content="在线更新全部配置文件" Click="UpdateJson_Click"/>
+        </StackPanel>
+
+        <ListView x:Name="RomList" Height="220" SelectionMode="Single"
+                  BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="6">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Padding="4"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button x:Name="BtnDownload" Content="打开下载链接" Click="DownloadRom_Click" MinWidth="160"/>
+            <Button x:Name="BtnBaseUrl" Content="打开底包下载链接" Click="BaseUrl_Click" MinWidth="180"/>
+            <Button Content="打开 system 目录" Click="OpenSystemDir_Click"/>
+            <Button Content="打开 base 目录" Click="OpenBaseDir_Click"/>
+        </StackPanel>
+
+        <InfoBar IsOpen="True" IsClosable="False" Severity="Informational"
+                 Title="提示"
+                 Message="第三方系统：点击「打开下载链接」后在浏览器中下载 super.img，放入 system 文件夹，然后使用【刷入第三方系统】功能。底包：点击「打开底包下载链接」下载 base ZIP，放入 base 文件夹，供刷入第三方系统时选择。"/>
+
+        <controls:LogPanel x:Name="Log" Height="180"/>
+    </StackPanel>
+</Page>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MatePadToolbox.Pages.FlashOfficialPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:MatePadToolbox.Controls"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="16">
+        <controls:TroubleshootButton FeatureKey="official" FeatureName="刷官方系统(救砖)" HorizontalAlignment="Left"/>
+
+        <TextBlock Text="刷入官方鸿蒙系统（救砖）" FontSize="24" FontWeight="Bold"/>
+
+        <InfoBar IsOpen="True" IsClosable="False" Severity="Informational"
+                 Title="官方系统包下载"
+                 Message="如果还没有官方系统包，可点击下方按钮打开分享链接下载。"/>
+        <HyperlinkButton Content="打开官方系统包分享链接（123云盘）" Click="OpenOfficialUrl_Click"/>
+
+        <TextBlock TextWrapping="Wrap" Opacity="0.8" LineHeight="22"
+                   Text="把下载好的官方系统 ZIP 放入 system 目录，选择后开始救砖刷写。刷写过程会递归刷入 ZIP 内的全部分区镜像。"/>
+
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <ComboBox x:Name="ZipCombo" PlaceholderText="选择官方系统 ZIP" MinWidth="400"/>
+            <Button Content="刷新" Click="RefreshZipList_Click"/>
+            <Button Content="打开 system 目录" Click="OpenSystemDir_Click"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button x:Name="BtnFlash" Content="开始刷入（救砖）" Click="FlashOfficial_Click"
+                    Style="{StaticResource AccentButtonStyle}" MinWidth="180"/>
+            <Button x:Name="BtnCancel" Content="取消" Click="Cancel_Click" IsEnabled="False"/>
+        </StackPanel>
+
+        <controls:LogPanel x:Name="Log" Height="300"/>
+    </StackPanel>
+</Page>

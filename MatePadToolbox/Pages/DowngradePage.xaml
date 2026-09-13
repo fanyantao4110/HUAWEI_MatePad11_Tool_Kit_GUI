@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MatePadToolbox.Pages.DowngradePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:MatePadToolbox.Controls"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="16">
+        <controls:TroubleshootButton FeatureKey="downgrade" FeatureName="降级系统/回锁BL" HorizontalAlignment="Left"/>
+
+        <TextBlock Text="降级系统 / 回锁BL" FontSize="24" FontWeight="Bold"/>
+        <TextBlock TextWrapping="Wrap" Opacity="0.8" LineHeight="22"
+                   Text="通过旧版华为手机助手 + HiSuite Proxy 实现系统降级（鸿蒙4 降级到鸿蒙3），降级后可重新解锁 BL。请按顺序执行下列步骤，并参照截图教程操作。"/>
+
+        <Grid ColumnSpacing="8" RowSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" x:Name="BtnStep1" Content="1. 安装旧版华为手机助手" Click="Step1_Click" MinWidth="220"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="运行 tools\HiSuiteProxy\HiSuite1.exe 安装程序" VerticalAlignment="Center" Opacity="0.7" TextWrapping="Wrap"/>
+
+            <Button Grid.Row="1" Grid.Column="0" x:Name="BtnStep2" Content="2. 打开 HiSuite Proxy 及图片教程" Click="Step2_Click" MinWidth="220"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="启动 HiSuite Proxy V3 并显示 screenshots\proxy 截图" VerticalAlignment="Center" Opacity="0.7" TextWrapping="Wrap"/>
+
+            <Button Grid.Row="2" Grid.Column="0" x:Name="BtnStep3" Content="3. 打开降级网址及图片教程" Click="Step3_Click" MinWidth="220"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="打开申请网址并显示 screenshots\降级 截图" VerticalAlignment="Center" Opacity="0.7" TextWrapping="Wrap"/>
+
+            <Button Grid.Row="3" Grid.Column="0" x:Name="BtnStep4" Content="4. 修改系统时间(2023-01-01)" Click="Step4_Click" MinWidth="220"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="需要管理员权限，会弹出 UAC 确认" VerticalAlignment="Center" Opacity="0.7" TextWrapping="Wrap"/>
+
+            <Button Grid.Row="4" Grid.Column="0" x:Name="BtnStep5" Content="5. 打开华为手机助手及图片教程" Click="Step5_Click" MinWidth="220"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="启动已安装的华为手机助手并显示 screenshots\助手 截图" VerticalAlignment="Center" Opacity="0.7" TextWrapping="Wrap"/>
+
+            <Button Grid.Row="5" Grid.Column="0" x:Name="BtnOneClick" Content="6. 一键执行（按顺序全部）" Click="OneClick_Click" MinWidth="220"
+                    Style="{StaticResource AccentButtonStyle}"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="依次执行步骤 1-5，每步之间需手动确认" VerticalAlignment="Center" Opacity="0.7" TextWrapping="Wrap"/>
+        </Grid>
+
+        <controls:LogPanel x:Name="Log" Height="240"/>
+    </StackPanel>
+</Page>

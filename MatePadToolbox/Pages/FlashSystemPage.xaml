@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MatePadToolbox.Pages.FlashSystemPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:MatePadToolbox.Controls"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="16">
+        <controls:TroubleshootButton FeatureKey="flash" FeatureName="刷入第三方系统" HorizontalAlignment="Left"/>
+
+        <TextBlock Text="刷入第三方系统" FontSize="24" FontWeight="Bold"/>
+
+        <Pivot x:Name="FlashPivot">
+            <!-- ==================== Fastboot 模式 ==================== -->
+            <PivotItem Header="Fastboot模式">
+                <StackPanel Spacing="12" Padding="0,8,0,0">
+                    <TextBlock TextWrapping="Wrap" Opacity="0.8" LineHeight="22"
+                               Text="通过 Fastboot 模式刷入底包、去除 avb 校验并刷入 super.img。请确保设备已进入 Fastboot 模式并连接电脑。"/>
+
+                    <TextBlock Text="底包（base 目录中的 ZIP）" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <ComboBox x:Name="FbBaseCombo" PlaceholderText="选择底包 ZIP" MinWidth="360"/>
+                        <Button Content="刷新" Click="RefreshBaseList_Click"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="BtnFbOneClick" Content="一键执行(底包+去avb+刷super)" Click="FbOneClick_Click"
+                                Style="{StaticResource AccentButtonStyle}"/>
+                    </StackPanel>
+
+                    <TextBlock Text="或分步执行" FontWeight="SemiBold" Margin="0,8,0,0"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="BtnFbBase" Content="1. 刷入底包" Click="FbFlashBase_Click" MinWidth="120"/>
+                        <Button x:Name="BtnFbVbmeta" Content="2. 去除avb校验" Click="FbFlashVbmeta_Click" MinWidth="120"/>
+                        <Button x:Name="BtnFbSuper" Content="3. 刷入super.img" Click="FbFlashSuper_Click" MinWidth="120"/>
+                        <Button x:Name="BtnFbCancel" Content="取消" Click="FbCancel_Click" IsEnabled="False"/>
+                    </StackPanel>
+                </StackPanel>
+            </PivotItem>
+
+            <!-- ==================== 9008 模式 ==================== -->
+            <PivotItem Header="9008模式（推荐）">
+                <StackPanel Spacing="12" Padding="0,8,0,0">
+                    <TextBlock TextWrapping="Wrap" Opacity="0.8" LineHeight="22"
+                               Text="通过 9008 深度刷机模式刷入底包、去除 avb 校验并刷入 super.img。需要 tools\rawprogram 目录下存在 rawprogram0-5.xml、rawprogram_vbmeta.xml、rawprogram_super.xml 与 misc.img。"/>
+
+                    <TextBlock Text="底包（base 目录中的 ZIP）" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <ComboBox x:Name="Q9008BaseCombo" PlaceholderText="选择底包 ZIP" MinWidth="360"/>
+                        <Button Content="刷新" Click="RefreshBaseList_Click"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="Btn9008OneClick" Content="一键执行(连接+底包+去avb+刷super)" Click="Q9008OneClick_Click"
+                                Style="{StaticResource AccentButtonStyle}"/>
+                    </StackPanel>
+
+                    <TextBlock Text="或分步执行" FontWeight="SemiBold" Margin="0,8,0,0"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="Btn9008Connect" Content="1. 连接9008端口" Click="Q9008Connect_Click" MinWidth="120"/>
+                        <Button x:Name="Btn9008Base" Content="2. 刷入底包" Click="Q9008FlashBase_Click" MinWidth="120"/>
+                        <Button x:Name="Btn9008Vbmeta" Content="3. 去除avb校验" Click="Q9008FlashVbmeta_Click" MinWidth="120"/>
+                        <Button x:Name="Btn9008Super" Content="4. 刷入super.img" Click="Q9008FlashSuper_Click" MinWidth="120"/>
+                        <Button x:Name="Btn9008Cancel" Content="取消" Click="Q9008Cancel_Click" IsEnabled="False"/>
+                    </StackPanel>
+                    <TextBlock x:Name="PortStatusText" Opacity="0.8" Margin="0,4,0,0"/>
+                </StackPanel>
+            </PivotItem>
+        </Pivot>
+
+        <controls:LogPanel x:Name="Log" Height="300"/>
+    </StackPanel>
+</Page>

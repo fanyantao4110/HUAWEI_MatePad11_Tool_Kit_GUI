@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MatePadToolbox.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:MatePadToolbox.Controls"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="16">
+        <TextBlock Text="华为MatePad 11 综合工具箱" FontSize="28" FontWeight="Bold"/>
+        <TextBlock TextWrapping="Wrap" LineHeight="22" Opacity="0.8"
+                   Text="仅支持设备型号 DBY-W09。刷机解锁等操作存在风险，请确保已备份数据。如果你已经安装驱动并解锁 BL，可以直接从 Root 功能开始。"/>
+
+        <InfoBar x:Name="ToolCheckBar" IsOpen="False" IsClosable="False"/>
+
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button Content="检查核心工具" Click="CheckTools_Click" Style="{StaticResource AccentButtonStyle}"/>
+            <Button Content="打开程序根目录" Click="OpenBaseDir_Click"/>
+        </StackPanel>
+
+        <TextBlock Text="功能列表" FontSize="18" FontWeight="SemiBold" Margin="0,8,0,0"/>
+        <Border BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+            <Grid Padding="16" RowSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="1" FontWeight="Bold"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="安装驱动程序"/>
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="ADB 驱动与高通 9008 驱动" Opacity="0.7" TextWrapping="Wrap"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="2" FontWeight="Bold"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="解锁BL"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="支持鸿蒙2-3 与 鸿蒙4（工程线/降级后解锁）" Opacity="0.7" TextWrapping="Wrap"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="3" FontWeight="Bold"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="Root"/>
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="Magisk 方式（刷 ramdisk）与 APatch 方式（自动提取/修补/刷入 boot）" Opacity="0.7" TextWrapping="Wrap"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="4" FontWeight="Bold"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="下载第三方系统/底包"/>
+                <TextBlock Grid.Row="3" Grid.Column="2" Text="从 Gitee 获取 2.0 / 3.0 / 4.0 / 4.2 / 4.3 系统列表与底包下载链接" Opacity="0.7" TextWrapping="Wrap"/>
+
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="5" FontWeight="Bold"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" Text="刷入第三方系统"/>
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="Fastboot 模式 / 9008 模式：底包、去 AVB 校验、super.img、一键执行" Opacity="0.7" TextWrapping="Wrap"/>
+
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="6" FontWeight="Bold"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Text="刷官方系统(救砖)"/>
+                <TextBlock Grid.Row="5" Grid.Column="2" Text="解压官方 ZIP 并递归刷入全部分区镜像" Opacity="0.7" TextWrapping="Wrap"/>
+
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="7" FontWeight="Bold"/>
+                <TextBlock Grid.Row="6" Grid.Column="1" Text="降级系统/回锁BL"/>
+                <TextBlock Grid.Row="6" Grid.Column="2" Text="旧版华为手机助手 + HiSuite Proxy + 修改系统时间" Opacity="0.7" TextWrapping="Wrap"/>
+
+                <TextBlock Grid.Row="7" Grid.Column="0" Text="8" FontWeight="Bold"/>
+                <TextBlock Grid.Row="7" Grid.Column="1" Text="ADB命令行"/>
+                <TextBlock Grid.Row="7" Grid.Column="2" Text="内置命令行终端，工作目录为 tools" Opacity="0.7" TextWrapping="Wrap"/>
+
+                <TextBlock Grid.Row="8" Grid.Column="0" Text="9" FontWeight="Bold"/>
+                <TextBlock Grid.Row="8" Grid.Column="1" Text="设备管理器"/>
+                <TextBlock Grid.Row="8" Grid.Column="2" Text="打开 Windows 设备管理器" Opacity="0.7" TextWrapping="Wrap"/>
+            </Grid>
+        </Border>
+
+        <controls:LogPanel x:Name="Log" Height="160"/>
+    </StackPanel>
+</Page>

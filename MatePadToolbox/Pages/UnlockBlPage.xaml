@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MatePadToolbox.Pages.UnlockBlPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:MatePadToolbox.Controls"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="16">
+        <controls:TroubleshootButton FeatureKey="unlock" FeatureName="解锁BL" HorizontalAlignment="Left"/>
+
+        <TextBlock Text="解锁BL" FontSize="24" FontWeight="Bold"/>
+        <InfoBar IsOpen="True" IsClosable="False" Severity="Warning"
+                 Title="警告"
+                 Message="本工具仅支持设备型号为 DBY-W09 使用！解锁 BL 可能会丢失数据，请先备份！操作有风险，请谨慎使用。"/>
+
+        <TextBlock Text="选择当前系统版本" FontWeight="SemiBold"/>
+        <RadioButtons x:Name="OsVersionGroup" SelectedIndex="0">
+            <RadioButton Content="鸿蒙2 - 鸿蒙3（通过 ADB 自动进入 9008）"/>
+            <RadioButton Content="鸿蒙4（需工程线/短接进入 9008，或先降级）"/>
+        </RadioButtons>
+
+        <StackPanel x:Name="Os4OptionsPanel" Spacing="8" Visibility="Collapsed">
+            <TextBlock Text="鸿蒙4 解锁方式" FontWeight="SemiBold"/>
+            <RadioButtons x:Name="Os4MethodGroup" SelectedIndex="0">
+                <RadioButton Content="使用工程线/短接进入 9008 后解锁"/>
+                <RadioButton Content="查看降级说明（先降级到鸿蒙3再解锁）"/>
+            </RadioButtons>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button x:Name="BtnStart" Content="开始解锁" Click="StartUnlock_Click"
+                    Style="{StaticResource AccentButtonStyle}" MinWidth="140"/>
+            <Button x:Name="BtnCancel" Content="取消" Click="Cancel_Click" IsEnabled="False"/>
+        </StackPanel>
+
+        <controls:LogPanel x:Name="Log" Height="340"/>
+    </StackPanel>
+</Page>

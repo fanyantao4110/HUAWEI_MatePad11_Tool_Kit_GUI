@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentDialog
+    x:Class="MatePadToolbox.Dialogs.TroubleshootDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="疑难解答"
+    PrimaryButtonText="下载配置"
+    CloseButtonText="关闭"
+    DefaultButton="Close">
+
+    <ContentDialog.Resources>
+        <DataTemplate x:Key="TroubleshootItemTemplate">
+            <Grid Padding="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{Binding Question}" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="1" Text="{Binding Answer}" TextWrapping="Wrap" Opacity="0.75" Margin="0,2,0,0"/>
+            </Grid>
+        </DataTemplate>
+    </ContentDialog.Resources>
+
+    <Grid Width="500" Height="420">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="选择问题查看解答：" Margin="0,0,0,8" Opacity="0.8"/>
+        <ListView Grid.Row="1" x:Name="TroubleshootList" IsItemClickEnabled="False" SelectionMode="Single">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="{Binding Question}" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Row="1" Text="{Binding Answer}" TextWrapping="Wrap" Opacity="0.75" Margin="0,2,0,0"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <InfoBar Grid.Row="2" x:Name="DownloadStatusBar" IsOpen="False" IsClosable="False" Margin="0,8,0,0"/>
+    </Grid>
+</ContentDialog>

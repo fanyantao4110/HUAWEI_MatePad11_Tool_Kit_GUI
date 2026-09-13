@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MatePadToolbox.Pages.DriverPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:MatePadToolbox.Controls"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="16">
+        <controls:TroubleshootButton FeatureKey="driver" FeatureName="安装驱动程序" HorizontalAlignment="Left"/>
+        <TextBlock Text="安装驱动程序" FontSize="24" FontWeight="Bold"/>
+        <TextBlock TextWrapping="Wrap" Opacity="0.8" LineHeight="22"
+                   Text="ADB 驱动用于日常调试与刷机；高通 9008 驱动用于 EDL 深度刷机模式。驱动安装器位于 tools\driver 目录。"/>
+
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button x:Name="BtnAdbDriver" Content="安装 ADB 驱动" Click="InstallAdbDriver_Click"
+                    Style="{StaticResource AccentButtonStyle}" MinWidth="160"/>
+            <Button x:Name="BtnQcDriver" Content="安装 Qualcomm 9008 驱动" Click="InstallQcDriver_Click"
+                    MinWidth="200"/>
+        </StackPanel>
+
+        <controls:LogPanel x:Name="Log" Height="320"/>
+    </StackPanel>
+</Page>
